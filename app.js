@@ -1,5 +1,18 @@
 const express = require('express');
 const app = express();
+const username = encodeURIComponent("shahinbavili");
+const password = encodeURIComponent("sqh88BP4K4dUtVv");
+const uri = `mongodb+srv://${username}:${password}@cluster0.yns2o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const mongoose = require('mongoose');
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Connexion à MongoDB réussie !'))
+    .catch(err => console.error('Connexion à MongoDB échouée !', err));
+
+
+
+app.use(express.json());
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -8,7 +21,14 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/api/stuff', (req, res, next) => {
+app.post('/api/stuff', (req, res, next) => {
+    console.log(req.body);
+    res.status(201).json({
+        message: 'Objet crée !',
+    });
+});
+
+app.get('/api/stuff', (req, res, next) => {
     const stuff = [
         {
             _id: 'oeihfzeoi',
