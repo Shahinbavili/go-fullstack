@@ -5,6 +5,7 @@ const password = encodeURIComponent("sqh88BP4K4dUtVv");
 const uri = `mongodb+srv://${username}:${password}@cluster0.yns2o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 const mongoose = require('mongoose');
 const stuffRoutes = require("./routes/stuff");
+const userRoutes = require("./routes/user");
 
 mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -25,5 +26,6 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use('/api/stuff', stuffRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
