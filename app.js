@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require("express");
+const path = require("path");
 const username = encodeURIComponent("shahinbavili");
 const password = encodeURIComponent("sqh88BP4K4dUtVv");
 const uri = `mongodb+srv://${username}:${password}@cluster0.yns2o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
@@ -27,5 +28,6 @@ app.use(bodyParser.json());
 
 app.use('/api/stuff', stuffRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
